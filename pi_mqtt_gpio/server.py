@@ -126,6 +126,7 @@ def set_pin(output_config, value):
     payload = output_config["on_payload" if value else "off_payload"]
     client.publish(
         "%s/%s/%s" % (topic_prefix, OUTPUT_TOPIC, output_config["name"]),
+        retain=output_config["retain"],
         payload=payload)
 
 
@@ -480,7 +481,9 @@ if __name__ == "__main__":
                             topic_prefix, INPUT_TOPIC, in_conf["name"]
                         ),
                         payload=(in_conf["on_payload"] if state
-                                 else in_conf["off_payload"]))
+                                 else in_conf["off_payload"]),
+                        retain=in_conf["retain"]
+                    )
                     LAST_STATES[in_conf["name"]] = state
             scheduler.loop()
             sleep(0.01)

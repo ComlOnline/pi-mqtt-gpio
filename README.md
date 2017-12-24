@@ -1,7 +1,14 @@
 PI MQTT GPIO
 ============
 
-Expose the Raspberry Pi GPIO pins (and/or external IO modules such as the PCF8574) to an MQTT server. This allows pins to be read and switched by reading or writing messages to MQTT topics.
+Expose the Raspberry Pi GPIO pins and/or external IO modules to an MQTT server. This allows pins to be read and switched by reading or writing messages to MQTT topics.
+
+Modules
+-------
+
+- Raspberry Pi GPIO (`raspberrypi`)
+- PCF8574 IO chip (`pcf8574`)
+- PiFaceDigital 2 IO board (`piface2`)
 
 Installation
 ------------
@@ -40,6 +47,7 @@ digital_outputs:
     on_payload: "ON"
     off_payload: "OFF"
     initial: low  # This optional value controls the initial state of the pin before receipt of any messages from MQTT. Valid options are 'low' and 'high'.
+    retain: yes # This option value controls if the message is retained. Default is no.
   
   - name: fan
     module: raspberrypi
